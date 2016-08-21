@@ -2,3 +2,20 @@
   height: 50px;
   width: 50px;
 }
+
+.center-block {
+  margin: 0 auto;
+  float: none;
+}
+.online {
+  background-color: #5cb85c;
+  color: white;
+}
+
+.online a {
+  color: white;
+}
+.dead {
+  background-color: #d9534f;
+  color: white;
+}
