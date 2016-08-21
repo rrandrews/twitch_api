@@ -35,7 +35,6 @@ function updateTable(data) {
   $("#streams-tbody").html(html);
 
   $.each(offlineStreamers, function(index, channelName) {
-    html += '<tr><td></td><td>';
     $.when(queryChannel(channelName)).then(
       function(data) {
         $("#streams-tbody").append('<tr class="offline"><td></td><td>' +
