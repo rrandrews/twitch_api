@@ -8,15 +8,6 @@ $(document).ready(function() {
     function(data) { alert(data.status); }
   );
 
-  //
-  // $.when(queryChannel('brunofin')).then(
-  //   function(data) {
-  //     alert("success");
-  //   }, function(data) {
-  //     alert(data.status);
-  //   }
-  // );
-  //
 });
 
 function queryTwitch(channels) {
@@ -33,7 +24,7 @@ function queryChannel(channel) {
 
 function updateTable(data) {
   var offlineStreamers = streamers;
-  html = '';
+  var html = '';
   $.each(data.streams, function(index, value) {
     offlineStreamers.splice(offlineStreamers.indexOf(this.channel.display_name), 1);
     html += '<tr><td><img class="logo" src="' + this.channel.logo + '"></td>' +
@@ -43,11 +34,18 @@ function updateTable(data) {
   })
   $("#streams-tbody").html(html);
 
-  $each(offlineStreamers, function(index, value) {
-
+  $.each(offlineStreamers, function(index, channelName) {
+    html += '<tr><td></td><td>';
+    $.when(queryChannel(channelName)).then(
+      function(data) {
+        $("#streams-tbody").append('<tr><td></td><td>' +
+                  '<a href="' + data._links.channel + '">' + channelName +
+                  '</a></td><td>Offline</td></tr>'); },
+      function(failure) {
+        $("#streams-tbody").append('<tr><td></td><td>' + channelName +
+                  '</td><td>Channel does not exist!</td></tr>'); }
+    );
   });
-}
 
-function populateOffline(data) {
-  $
+
 }
